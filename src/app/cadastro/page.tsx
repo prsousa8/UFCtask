@@ -1,6 +1,7 @@
 "use client";
 import Form from "@/components/form";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function Atividades() {
   const [atividades, setAtividades] = useState([]);
@@ -20,6 +21,9 @@ export default function Atividades() {
     }
   }
 
+  const URL_DA_IMAGEM_DE_ERRO = "/assets/cancel.svg";
+    const URL_DA_IMAGEM_DE_SUCESSO = "/assets/success.svg";
+
   const onSubmit = async (data: any) => {
     try {
       const response = await fetch("/api/cadastro", {
@@ -30,7 +34,14 @@ export default function Atividades() {
 
       if (response.ok) {
         buscarAtividades(); // Atualiza a lista após cadastro
-        alert("Cadastro efetuado com Sucesso!");
+        Swal.fire({
+          title: "Sucesso!",
+          text: "Cadastro realizado com sucesso",
+          imageUrl: URL_DA_IMAGEM_DE_SUCESSO,
+          imageWidth: 80,
+          imageHeight: 80,
+          imageAlt: "Imagem de sucesso",
+      });
       } else {
         console.error("Erro ao cadastrar atividade");
       }
