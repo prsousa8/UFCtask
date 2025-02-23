@@ -154,7 +154,6 @@ export default function DetalhesAtividade({ params }: PageProps) {
 
       {editando && (
         <div className="mt-6 p-4 border rounded-lg bg-gray-100">
-          <h2 className="text-xl font-bold mb-2">Editar Atividade</h2>
           <Form atividade={atividade} onSubmit={onSubmit} />
         </div>
       )}
