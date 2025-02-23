@@ -13,7 +13,6 @@ async function lerDados() {
   }
 }
 
-
 // Criar uma nova atividade
 export async function POST(req: NextRequest) {
   try {
@@ -39,15 +38,27 @@ export async function POST(req: NextRequest) {
 }
 
 // Obter todas as atividades
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
     const atividades = await lerDados();
-    return NextResponse.json({ atividades });
+
+    if (id) {
+      const atividade = atividades.find((atividade: any) => atividade.id === id);
+      if (atividade) {
+        return NextResponse.json({ atividade });
+      } else {
+        return NextResponse.json({ error: "Atividade não encontrada." }, { status: 404 });
+      }
+    } else {
+      return NextResponse.json({ atividades });
+    }
   } catch (error) {
     return NextResponse.json({ error: "Erro ao buscar os dados." }, { status: 500 });
   }
 }
-
 
 // Editar uma atividade
 export async function PUT(req: NextRequest) {
@@ -56,7 +67,7 @@ export async function PUT(req: NextRequest) {
     const { id, titulo, responsavel, data: dataStr, descricao } = data;
 
     let atividades = await lerDados();
-    atividades = atividades.map((atividade:any) =>
+    atividades = atividades.map((atividade: any) =>
       atividade.id === id
         ? { ...atividade, titulo, responsavel, data: new Date(dataStr), descricao }
         : atividade
@@ -76,7 +87,7 @@ export async function DELETE(req: NextRequest) {
     const { id } = await req.json();
 
     let atividades = await lerDados();
-    atividades = atividades.filter((atividade:any) => atividade.id !== id);
+    atividades = atividades.filter((atividade: any) => atividade.id !== id);
 
     await fs.writeFile(filePath, JSON.stringify(atividades, null, 2));
 

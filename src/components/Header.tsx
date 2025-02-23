@@ -9,7 +9,7 @@ const Header = () => {
           <div className="space-x-6">
             <Link href="/" className="hover:text-indigo-300">Home</Link>
             <Link href="/cadastro" className="hover:text-indigo-300">Cadastro</Link>
-            <Link href="/lista" className="hover:text-indigo-300">Lista</Link>
+            <Link href="/atividades" className="hover:text-indigo-300">Lista</Link>
           </div>
         </nav>
       </header>
