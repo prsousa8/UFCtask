@@ -15,6 +15,7 @@ export default function Atividades() {
   const [editando, setEditando] = useState<Atividade | null>(null);
   const [detalhesAtividade, setDetalhesAtividade] = useState<Atividade | null>(null);
   const [formVisible, setFormVisible] = useState(false);
+  const [termoPesquisa, setTermoPesquisa] = useState("");
 
   useEffect(() => {
     buscarAtividades();
@@ -52,6 +53,10 @@ export default function Atividades() {
       console.error("Erro:", error);
     }
   }
+
+  const atividadesFiltradas = atividades.filter(atividade =>
+    atividade.titulo.toLowerCase().includes(termoPesquisa.toLowerCase())
+  );
 
   const onSubmit = async (data: any) => {
     if (!editando) return;
@@ -105,11 +110,18 @@ export default function Atividades() {
     <div className="max-w-6xl mx-auto p-4 flex space-x-8">
       <div className="w-2/3">
         <h1 className="text-2xl font-bold mb-4 text-white">Atividades Cadastradas</h1>
-        {atividades.length === 0 ? (
+        <input
+          type="text"
+          placeholder="Pesquisar por título..."
+          className="mb-4 p-2 border rounded w-full"
+          value={termoPesquisa}
+          onChange={(e) => setTermoPesquisa(e.target.value)}
+        />
+        {atividadesFiltradas.length === 0 ? (
           <p>Nenhuma atividade cadastrada.</p>
         ) : (
           <ul className="space-y-4">
-            {atividades.map((atividade) => (
+            {atividadesFiltradas.map((atividade) => (
               <li key={atividade.id} className="border p-4 rounded-lg shadow-md flex justify-between items-center bg-slate-200">
                 <div>
                   <h2 className="text-lg font-semibold">{atividade.titulo}</h2>
@@ -151,7 +163,7 @@ export default function Atividades() {
         )}
       </div>
 
-      <div className="w-1/3 mt-12">
+      <div className="w-1/2 mt-12">
         {detalhesAtividade ? (
           <div className="p-4 border rounded-lg bg-gray-100 ">
             <h2 className="text-xl font-bold mb-2">Detalhes da Atividade</h2>
