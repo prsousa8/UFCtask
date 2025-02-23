@@ -1,6 +1,7 @@
 "use client";
 import Form from "@/components/form";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 type Atividade = {
   id: string;
@@ -32,27 +33,42 @@ export default function Atividades() {
     }
   }
 
-  async function excluirAtividade(id: string) {
-    if (!confirm("Tem certeza que deseja excluir esta atividade?")) return;
 
-    try {
-      const response = await fetch("/api/cadastro", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
-      });
+async function excluirAtividade(id: string) {
+  const resultado = await Swal.fire({
+    title: "Tem certeza?",
+    text: "Você não poderá reverter essa ação!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Sim, excluir!",
+    cancelButtonText: "Cancelar",
+  });
 
-      if (response.ok) {
-        buscarAtividades();
-        setEditando(null);
-        setDetalhesAtividade(null);
-      } else {
-        console.error("Erro ao excluir atividade");
-      }
-    } catch (error) {
-      console.error("Erro:", error);
+  if (!resultado.isConfirmed) return;
+
+  try {
+    const response = await fetch("/api/cadastro", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+
+    if (response.ok) {
+      buscarAtividades();
+      setEditando(null);
+      setDetalhesAtividade(null);
+      Swal.fire("Excluído!", "A atividade foi removida.", "success");
+    } else {
+      Swal.fire("Erro!", "Não foi possível excluir a atividade.", "error");
     }
+  } catch (error) {
+    Swal.fire("Erro!", "Ocorreu um erro ao excluir a atividade.", "error");
+    console.error("Erro:", error);
   }
+}
+
 
   const atividadesFiltradas = atividades.filter(atividade =>
     atividade.titulo.toLowerCase().includes(termoPesquisa.toLowerCase())

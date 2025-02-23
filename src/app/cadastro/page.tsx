@@ -43,9 +43,10 @@ export default function Atividades() {
           imageAlt: "Imagem de sucesso",
       });
       } else {
-        console.error("Erro ao cadastrar atividade");
+        Swal.fire("Erro!", "Não foi possível cadastrar a atividade.", "error");
       }
     } catch (error) {
+      Swal.fire("Erro!", "Ocorreu um erro ao cadastrar a atividade.", "error");
       console.error("Erro:", error);
     }
   };
