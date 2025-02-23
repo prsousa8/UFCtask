@@ -2,6 +2,14 @@
 
 <p align="justify">Diante da necessidade de um sistema eficiente para registro e acompanhamento de atividades acadêmicas, propõe-se o desenvolvimento de uma plataforma web utilizando React. Essa plataforma permite o cadastro e monitoramento das atividades acadêmicas, proporcionando maior organização e acessibilidade às informações. A plataforma conta com as seguintes funcionalidades essenciais: Tela de Cadastro, com formulário para inserção das informações da atividade, incluindo nome, responsável, data e descrição, além de validações para garantir que todos os campos obrigatórios sejam preenchidos corretamente. Tela de Listagem, que exibirá todas as atividades cadastradas em uma lista organizada, com botões de edição, remoção e apresentação de detalhes, onde serão mostradas todas as informações completas de cada atividade.</p>
 
+<h2 align="center">Tecnologias utilizadas!</h2>
+<div align="center">
+    <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="logo=typescript">
+    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="logo=css3"/>
+    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="logo=react">
+    <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="logo=tailwind-css">
+</div>
+
 ## Iniciando projeto
 
 A criação do projeto [Next.js](https://nextjs.org) ocorreu da seguinte forma:
