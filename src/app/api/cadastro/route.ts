@@ -17,7 +17,7 @@ async function lerDados() {
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-    const { titulo, responsavel, data: dataStr, descricao } = data;
+    const { titulo, responsavel, data: dataStr, descricao, status } = data; // Incluindo 'status'
 
     const novaAtividade = {
       id: crypto.randomUUID(),
@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
       responsavel,
       data: new Date(dataStr),
       descricao,
+      status: status || "pendente", // Adicionando um valor padrão de status
     };
 
     const atividades = await lerDados();
@@ -64,12 +65,12 @@ export async function GET(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const data = await req.json();
-    const { id, titulo, responsavel, data: dataStr, descricao } = data;
+    const { id, titulo, responsavel, data: dataStr, descricao, status } = data; // Incluindo 'status'
 
     let atividades = await lerDados();
     atividades = atividades.map((atividade: any) =>
       atividade.id === id
-        ? { ...atividade, titulo, responsavel, data: new Date(dataStr), descricao }
+        ? { ...atividade, titulo, responsavel, data: new Date(dataStr), descricao, status } // Atualizando 'status'
         : atividade
     );
 

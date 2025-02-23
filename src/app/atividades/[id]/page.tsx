@@ -10,6 +10,7 @@ type Atividade = {
   responsavel: string;
   data: string;
   descricao: string;
+  status: string;  // Adicionado campo 'status'
 };
 
 interface PageProps {
@@ -134,6 +135,7 @@ export default function DetalhesAtividade({ params }: PageProps) {
         <p><strong>Responsável:</strong> {atividade.responsavel}</p>
         <p><strong>Data:</strong> {formatDate(new Date(atividade.data).toISOString().split('T')[0])}</p>
         <p><strong>Descrição:</strong> {atividade.descricao}</p>
+        <p><strong>Status:</strong> {atividade.status}</p> {/* Exibe o status da atividade */}
         <div className="space-x-2 mt-4">
           <button
             onClick={toggleEditar} // Chamando a função que alterna o estado

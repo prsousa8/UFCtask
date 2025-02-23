@@ -10,6 +10,7 @@ type Atividade = {
   responsavel: string;
   data: string;
   descricao: string;
+  status: string;  // Adicionamos o campo status
 };
 
 export default function Atividades() {
@@ -111,6 +112,7 @@ export default function Atividades() {
                   <h2 className="text-lg font-semibold">{atividade.titulo}</h2>
                   <p><strong>Responsável:</strong> {atividade.responsavel}</p>
                   <p><strong>Data:</strong> {formatDate(new Date(atividade.data).toISOString().split('T')[0])}</p>
+                  <p><strong>Status:</strong> {atividade.status}</p> {/* Exibe o status da atividade */}
                 </div>
                 <div className="space-x-2">
                   <button

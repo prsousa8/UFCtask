@@ -9,6 +9,7 @@ type FormData = {
   responsavel: string;
   data: string;
   descricao: string;
+  status: string; // Novo campo para o status da atividade
 };
 
 type FormProps = {
@@ -34,6 +35,7 @@ export default function Form({ atividade, onSubmit }: FormProps) {
       setValue("responsavel", atividade.responsavel);
       setValue("data", formattedDate); // Para preencher a data no formato correto
       setValue("descricao", atividade.descricao);
+      setValue("status", atividade.status); // Preencher o status
     }
   }, [atividade, setValue]);
 
@@ -132,10 +134,29 @@ export default function Form({ atividade, onSubmit }: FormProps) {
                 type="text"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
-
               {errors?.descricao && (
                 <span className="text-red-700">{errors.descricao.message}</span>
               )}
+            </div>
+          </div>
+          {/* Campo de Status */}
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="status"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Status
+            </label>
+            <div className="mt-2.5">
+              <select
+                {...register("status", { required: "Status é obrigatório." })}
+                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              >
+                <option value="Em andamento">Em andamento</option>
+                <option value="Concluída">Concluída</option>
+                <option value="Pendente">Pendente</option>
+              </select>
+              {errors?.status && <span className="text-red-700">{errors.status.message}</span>}
             </div>
           </div>
         </div>
