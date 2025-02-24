@@ -31,15 +31,6 @@ function styleStatus(status: string) {
     return aux;
 }
 
-//   function tagDescricao(descricao){
-//     let aux = "";
-//     if(descricao!==""){
-//         aux=`<p className="text-gray-600 mb-4">
-//                   <strong>Descrição:</strong> ${atividade.descricao}
-//                 </p>`;
-//     }
-//   }
-
 export function Atividade(atividade: Atividade) {
     return (
         <>
