@@ -14,5 +14,13 @@
     "data": "2025-02-26T00:00:00.000Z",
     "descricao": "Instalar PCs no laboratório",
     "status": "Pendente"
+  },
+  {
+    "id": "aad04ad7-3db2-4cc3-847f-faffc42071d4",
+    "titulo": "Zendaya - Replay",
+    "responsavel": "Paulo",
+    "data": "2025-02-28T00:00:00.000Z",
+    "descricao": "Ouvir música",
+    "status": "Em andamento"
   }
 ]

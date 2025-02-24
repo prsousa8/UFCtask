@@ -1,8 +1,8 @@
 "use client";
-import Form from "@/components/form";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation"; // Importação do useRouter
+import { Atividade } from "@/components/Atividade";
 
 type Atividade = {
   id: string;
@@ -15,9 +15,6 @@ type Atividade = {
 
 export default function Atividades() {
   const [atividades, setAtividades] = useState<Atividade[]>([]);
-  const [editando, setEditando] = useState<Atividade | null>(null);
-  const [detalhesAtividade, setDetalhesAtividade] = useState<Atividade | null>(null);
-  const [formVisible, setFormVisible] = useState(false);
   const [termoPesquisa, setTermoPesquisa] = useState("");
   const router = useRouter(); // Instância do router
 
@@ -59,8 +56,6 @@ export default function Atividades() {
 
       if (response.ok) {
         buscarAtividades();
-        setEditando(null);
-        setDetalhesAtividade(null);
         Swal.fire("Excluído!", "A atividade foi removida.", "success");
       } else {
         Swal.fire("Erro!", "Não foi possível excluir a atividade.", "error");
@@ -74,18 +69,6 @@ export default function Atividades() {
   const atividadesFiltradas = atividades.filter(atividade =>
     atividade.titulo.toLowerCase().includes(termoPesquisa.toLowerCase())
   );
-
-  const formatDate = (date: string): string => {
-    const regex = /^(\d{4})-(\d{2})-(\d{2})$/;
-    const match = date.match(regex);
-  
-    if (match) {
-      const [, year, month, day] = match;
-      return `${day}/${month}/${year}`;
-    }
-  
-    return date;
-  };
 
   const abrirDetalhesEmNovaPagina = (id: string) => {
     router.push(`/atividades/${id}`); // Redireciona para a página dinâmica da atividade
@@ -109,10 +92,13 @@ export default function Atividades() {
             {atividadesFiltradas.map((atividade) => (
               <li key={atividade.id} className="border p-4 rounded-lg shadow-md flex justify-between items-center bg-slate-200">
                 <div>
-                  <h2 className="text-lg font-semibold">{atividade.titulo}</h2>
-                  <p><strong>Responsável:</strong> {atividade.responsavel}</p>
-                  <p><strong>Data:</strong> {formatDate(new Date(atividade.data).toISOString().split('T')[0])}</p>
-                  <p><strong>Status:</strong> {atividade.status}</p> {/* Exibe o status da atividade */}
+                  <Atividade
+                    titulo={atividade.titulo}
+                    responsavel={atividade.responsavel}
+                    data={atividade.data}
+                    descricao=""
+                    status={atividade.status}
+                  />
                 </div>
                 <div className="space-x-2">
                   <button

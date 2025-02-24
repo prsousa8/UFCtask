@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Form from "@/components/form";
 import { use } from "react";
+import { Atividade } from "@/components/Atividade";
 
 type Atividade = {
   id: string;
@@ -34,14 +35,14 @@ export default function DetalhesAtividade({ params }: PageProps) {
     try {
       // Certifique-se de que a URL esteja correta
       const response = await fetch(`/api/cadastro?id=${id}`);
-      
+
       // Verifique a resposta da API
       if (!response.ok) {
         throw new Error(`Erro ao buscar atividade com ID ${id}: ${response.statusText}`);
       }
-      
+
       const data = await response.json();
-      
+
       // Verifique se a atividade foi retornada
       if (data.atividade) {
         setAtividade(data.atividade);
@@ -115,27 +116,17 @@ export default function DetalhesAtividade({ params }: PageProps) {
 
   if (!atividade) return <p>Carregando...</p>;
 
-  const formatDate = (date: string): string => {
-    const regex = /^(\d{4})-(\d{2})-(\d{2})$/;
-    const match = date.match(regex);
-  
-    if (match) {
-      const [, year, month, day] = match;
-      return `${day}/${month}/${year}`;
-    }
-  
-    return date;
-  };
-
   return (
     <div className="max-w-6xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4 text-white">Detalhes da Atividade</h1>
       <div className="p-4 border rounded-lg bg-slate-200">
-        <h2 className="text-lg font-semibold">{atividade.titulo}</h2>
-        <p><strong>Responsável:</strong> {atividade.responsavel}</p>
-        <p><strong>Data:</strong> {formatDate(new Date(atividade.data).toISOString().split('T')[0])}</p>
-        <p><strong>Descrição:</strong> {atividade.descricao}</p>
-        <p><strong>Status:</strong> {atividade.status}</p> {/* Exibe o status da atividade */}
+        <Atividade
+          titulo={atividade.titulo}
+          responsavel={atividade.responsavel}
+          data={atividade.data}
+          descricao={atividade.descricao}
+          status={atividade.status}
+        />
         <div className="space-x-2 mt-4">
           <button
             onClick={toggleEditar} // Chamando a função que alterna o estado
